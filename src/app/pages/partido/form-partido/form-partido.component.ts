@@ -27,6 +27,9 @@ export class FormPartidoComponent {
   readonly partido = inject<Partido>(MAT_DIALOG_DATA);
   readonly dialog = inject(MatDialogRef<FormPartidoComponent>);
   msg = signal('');
+  logoPreview: string | null = null;
+  fotoPreview: string | null = null;
+
 
   form = this.fb.group({
     nombre: this.fb.control(this.partido.nombre ?? '', Validators.required),
@@ -40,9 +43,21 @@ export class FormPartidoComponent {
   onFileChange(event: Event, controlName: 'logo' | 'fotoCandidato') {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.form.get(controlName)?.setValue(input.files[0]);
+      const file = input.files[0];
+      this.form.get(controlName)?.setValue(file);
+  
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (controlName === 'logo') {
+          this.logoPreview = reader.result as string;
+        } else if (controlName === 'fotoCandidato') {
+          this.fotoPreview = reader.result as string;
+        }
+      };
+      reader.readAsDataURL(file);
     }
   }
+  
 
   enviar() {
     const formData = new FormData();

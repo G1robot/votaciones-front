@@ -1,16 +1,16 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Partido } from './partido.model';
+import { Partido } from '../partido/partido.model';
 import { environment } from '../../environment/environment';
 import { from, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PartidoService {
+export class VotacionService {
   http = inject(HttpClient)
   url = environment.host+'partido';
-
+  urlv = environment.host+'votacion';
   constructor() { }
 
   private simulateDelay(): Promise<void> {
@@ -27,16 +27,6 @@ export class PartidoService {
   }
 
   create(item:any){
-    return this.http.post(this.url,item)
+    return this.http.post(this.urlv,item)
   }
-
-  update(id: any, data: any) {
-    return this.http.patch(`http://localhost:3000/partido/${id}`, data);
-  }
-
-  delete(id: string) {
-    return this.http.delete(`http://localhost:3000/partido/${id}`);
-  }
-
-  
 }

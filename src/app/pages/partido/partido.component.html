@@ -7,7 +7,7 @@
   <div class="row">
     @for(partido of partidoResource.value() ?? []; track partido.id) {
       <div class="col-md-4 mb-4">
-        <div class="partido-card" >
+        <div class="partido-card" (click)="abrirDetallePartido(partido)">
           <div class="card-background">
             <img 
               [src]="'http://localhost:3000/uploads/partidos/' + partido.logo" 
@@ -22,11 +22,24 @@
             {{ partido.nombre }}
           </div>
           <div class="hover-info">
-            <h4>{{ partido.siglas }}</h4>
-            <p>{{ partido.descripcion }}</p>
+            <div class="hover-buttons">
+              <button class="btn btn-sm btn-outline-primary me-1" title="Editar" (click)="editar(partido)">
+                <i class="fas fa-pen"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" title="Deshabilitar" (click)="eliminar(partido)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <h4 (click)="abrirDetallePartido(partido)" >{{ partido.siglas }}</h4>
+            <p (click)="abrirDetallePartido(partido)">{{ partido.descripcion }}</p>
           </div>
         </div>
       </div>
     }
   </div>
+</div>
+<div class="d-flex justify-content-center my-3">
+  @if(isLoading()){
+    <mat-spinner></mat-spinner>
+  }
 </div>

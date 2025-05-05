@@ -1,0 +1,43 @@
+<form [formGroup]="form" (ngSubmit)="enviar()" class="p-3">
+    <div class="mb-3">
+      <label class="form-label">Nombre Completo</label>
+      <input type="text" class="form-control" formControlName="nombreCompleto" />
+    </div>
+  
+    <div class="mb-3">
+      <label class="form-label">CI</label>
+      <input type="text" class="form-control" formControlName="ci" />
+    </div>
+  
+    <div class="mb-3">
+      <label class="form-label">Fecha de Nacimiento</label>
+      <input type="date" class="form-control" formControlName="fechaNacimiento" />
+    </div>
+  
+    <div class="mb-3">
+      <label class="form-label">Rol</label>
+      <select class="form-select" formControlName="rol">
+        <option [value]="'admin'">Administrador</option>
+        <option [value]="'votante'">Votante</option>
+        <option [value]="'representante'">Representante</option>
+      </select>
+    </div>
+  
+    <div class="mb-3">
+      <label class="form-label">¿Voto?</label>
+      <select class="form-select" formControlName="voto">
+        <option [value]="true">Sí</option>
+        <option [value]="false">No</option>
+      </select>
+    </div>
+  
+    <div *ngIf="msg()" class="alert alert-danger">
+      {{ msg() }}
+    </div>
+  
+    <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-secondary" (click)="dialog.close()">Cancelar</button>
+      <button class="btn btn-primary" [disabled]="form.invalid">Guardar</button>
+    </div>
+  </form>
+  

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal  } from '@angular/core';
+import { Component, computed, inject, Input, signal  } from '@angular/core';
 import { PropuestaService } from './propuesta.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -21,6 +21,8 @@ export interface Propuesta{
   styleUrl: './propuesta.component.css'
 })
 export class PropuestaComponent {
+  @Input() partidoId: string = '';
+
   propuestaService = inject(PropuestaService);
   loading = signal(false);
   isLoading = computed(()=>this.loading());
@@ -31,7 +33,7 @@ export class PropuestaComponent {
   propuestaResource = rxResource({
     loader: () => {
       this.loading.set(true);
-      return this.propuestaService.getAll().pipe(
+      return this.propuestaService.getByPartido(this.partidoId).pipe(
         map((response: any) => {
           this.loading.set(false);
           return response.data.data;
@@ -55,7 +57,7 @@ export class PropuestaComponent {
 
   nuevo(){
     this.propuesta={
-      id:'',nombre:'',descripcion:'',partidoId:''
+      id:'',nombre:'',descripcion:'',partidoId:this.partidoId
     }
     this.openDialog(this.propuesta);
   }

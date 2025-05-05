@@ -5,7 +5,8 @@
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;
-    height: 400px;
+    width: 250px; 
+    height: 380px; 
     padding: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
@@ -35,7 +36,7 @@
     z-index: 2;
     height: 80%;
     float: right;
-    margin-top: 10px;
+    margin-top: 43px;
     margin-right: 4px;
     border-radius: 1rem;
     object-fit: cover;
@@ -68,7 +69,7 @@
     background-color: rgba(0, 0, 0, 0.75);
     opacity: 0;
     padding: 1rem;
-    z-index: 10; /* Muy por encima de todo */
+    z-index: 10;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,5 +81,18 @@
   
   .partido-card:hover .hover-info {
     opacity: 1;
+  }
+  .hover-buttons {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 20;
+    display: flex;
+    gap: 0.3rem;
+  }
+  
+  .hover-buttons button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
   }
   

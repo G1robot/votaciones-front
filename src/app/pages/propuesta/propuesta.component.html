@@ -9,7 +9,6 @@
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Partido</th>
             <th>Acciones</th>
         </tr>
       </thead>
@@ -18,7 +17,6 @@
             <tr>
               <td>{{ propuesta.nombre }}</td>
               <td>{{ propuesta.descripcion }}</td>
-              <td>{{ propuesta.partidoId }}</td>
               <td>
                 <div class="d-flex justify-content-center gap-2">
                   <!-- Botón Editar -->
@@ -42,6 +40,8 @@
     
   </div>
 
-  @if(isLoading()){
-    <mat-spinner></mat-spinner>
+  <div class="d-flex justify-content-center my-3">
+    @if(isLoading()){
+      <mat-spinner></mat-spinner>
     }
+  </div>

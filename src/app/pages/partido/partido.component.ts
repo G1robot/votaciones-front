@@ -4,6 +4,9 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { FormPartidoComponent } from './form-partido/form-partido.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CronogramaComponent } from '../cronograma/cronograma.component';
+import { PartidoDetalleDialogComponent } from './partido-detalle-dialog/partido-detalle-dialog.component';
 
 export interface Partido{
   id?: string,
@@ -16,13 +19,14 @@ export interface Partido{
 }
 @Component({
   selector: 'app-partido',
-  imports: [MatDialogModule],
+  imports: [MatDialogModule,MatProgressSpinnerModule],
   templateUrl: './partido.component.html',
   styleUrl: './partido.component.css'
 })
 export class PartidoComponent {
   partidoService = inject(PartidoService);
   loading = signal(false);
+  isLoading = computed(()=>this.loading());
   dialog = inject(MatDialog);
   partido:Partido={};	
 
@@ -38,17 +42,38 @@ export class PartidoComponent {
     }
   });
 
-  nuevo(){
-    this.partido={
-      id:'',nombre:'',siglas:'',nombreCandidato:'',logo:'',fotoCandidato:'',descripcion:''
-    }
+  openDialog(data:any){
+    this.partido = data;
     const nuevoForm = this.dialog.open(FormPartidoComponent,{
+      width: '800px',
+      maxWidth: '95vw',
       data:this.partido
     })
+
     nuevoForm.afterClosed().subscribe(resulta=>{
       if(resulta)
         this.partidoResource.reload();
     })
+    this.partidoResource.reload();
+  }
+
+  abrirDetallePartido(partido: any) {
+    this.dialog.open(PartidoDetalleDialogComponent, {
+      width: '800px',
+      data: { partidoId: partido.id }
+    });
+  }
+  
+
+  nuevo(){
+    this.partido={
+      id:'',nombre:'',siglas:'',nombreCandidato:'',logo:'',fotoCandidato:'',descripcion:''
+    }
+    this.openDialog(this.partido);
+  }
+  
+  editar(item: any){
+    this.openDialog(item);
   }
 
   eliminar(partido: Partido) {

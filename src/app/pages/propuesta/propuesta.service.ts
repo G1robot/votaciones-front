@@ -25,6 +25,12 @@ export class PropuestaService {
     );
   }
 
+  getByPartido(partidoId: string) {
+    return this.http.get<Propuesta[]>(`${this.url}/${partidoId}`);
+  }
+  
+  
+
   create(item:any){
     return this.http.post(this.url,item)
   }

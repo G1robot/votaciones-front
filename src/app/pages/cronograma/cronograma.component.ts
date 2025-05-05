@@ -1,10 +1,11 @@
-import { Component, computed, inject, signal  } from '@angular/core';
+import { Component, computed, inject, Input, signal  } from '@angular/core';
 import { CronogramaService } from './cronograma.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { FormCronogramaComponent } from './form-cronograma/form-cronograma.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 export interface Cronograma{
   id?: string,
@@ -16,13 +17,17 @@ export interface Cronograma{
 }
 @Component({
   selector: 'app-cronograma',
-  imports: [MatDialogModule,CommonModule],
+  imports: [MatDialogModule,CommonModule,MatProgressSpinnerModule],
   templateUrl: './cronograma.component.html',
   styleUrl: './cronograma.component.css'
 })
 export class CronogramaComponent {
+  @Input() partidoId: string = '';
+
+
   cronogramaService = inject(CronogramaService);
   loading = signal(false);
+  isLoading = computed(()=>this.loading());
   dialog = inject(MatDialog);
   cronograma:Cronograma={};	
 
@@ -30,14 +35,15 @@ export class CronogramaComponent {
   cronogramaResource = rxResource({
     loader: () => {
       this.loading.set(true);
-      return this.cronogramaService.getAll().pipe(
+      return this.cronogramaService.getByPartido(this.partidoId).pipe(
         map((response: any) => {
           this.loading.set(false);
-          return response.data.data;
+          return response.data?.data || response;
         })
       );
     }
   });
+  
 
   openDialog(data:any){
     this.cronograma = data;
@@ -54,7 +60,7 @@ export class CronogramaComponent {
 
   nuevo(){
     this.cronograma={
-      id:'',actividad:'',descripcion:'',fecha:new Date(),hora:'',partidoId:''
+      id:'',actividad:'',descripcion:'',fecha:new Date(),hora:'',partidoId:this.partidoId
     }
     this.openDialog(this.cronograma);
   }

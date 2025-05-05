@@ -1,71 +1,50 @@
-<!-- <div class="modal fade" id="modalPartido" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="modal-header">
-            <h5 class="modal-title">Nuevo Partido</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-  
-          <div class="modal-body">
-            <input formControlName="nombre" class="form-control mb-2" placeholder="Nombre" />
-            <input formControlName="siglas" class="form-control mb-2" placeholder="Siglas" />
-            <input formControlName="nombreCandidato" class="form-control mb-2" placeholder="Candidato" />
-            <textarea formControlName="descripcion" class="form-control mb-2" placeholder="Descripción"></textarea>
-  
-            <label>Logo:</label>
-            <input type="file" (change)="onLogoChange($event)" class="form-control mb-2" />
-  
-            <label>Foto Candidato:</label>
-            <input type="file" (change)="onFotoChange($event)" class="form-control mb-2" />
-          </div>
-  
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          </div>
-        </form>
+<form [formGroup]="form" (ngSubmit)="enviar()" enctype="multipart/form-data" class="formulario">
+  <h2 class="titulo">Formulario de registro Partido</h2>
+
+  <div class="formulario-grid">
+    <!-- Columna izquierda -->
+    <div class="columna">
+      <label>Logotipo</label>
+      <div class="imagen-previa">
+        <img *ngIf="logoPreview" [src]="logoPreview" alt="Logo partido">
       </div>
+      <input type="file" (change)="onFileChange($event, 'logo')">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre Partido</mat-label>
+        <input matInput formControlName="nombre">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Siglas</mat-label>
+        <input matInput formControlName="siglas">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="descripcion">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descripcion" rows="3"></textarea>
+      </mat-form-field>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="columna">
+      <label>Foto Candidato</label>
+      <div class="imagen-previa">
+        <img *ngIf="fotoPreview" [src]="fotoPreview" alt="Foto candidato">
+      </div>
+      <input type="file" (change)="onFileChange($event, 'fotoCandidato')">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre Candidato</mat-label>
+        <input matInput formControlName="nombreCandidato">
+      </mat-form-field>
     </div>
   </div>
-   -->
 
-   <form [formGroup]="form" (ngSubmit)="enviar()" enctype="multipart/form-data" class="p-3">
-    <div class="mb-3">
-      <label class="form-label">Nombre</label>
-      <input type="text" class="form-control" formControlName="nombre">
-    </div>
-  
-    <div class="mb-3">
-      <label class="form-label">Siglas</label>
-      <input type="text" class="form-control" formControlName="siglas">
-    </div>
-  
-    <div class="mb-3">
-      <label class="form-label">Nombre del Candidato</label>
-      <input type="text" class="form-control" formControlName="nombreCandidato">
-    </div>
-  
-    <div class="mb-3">
-      <label class="form-label">Descripción</label>
-      <textarea class="form-control" rows="3" formControlName="descripcion"></textarea>
-    </div>
-  
-    <div class="mb-3">
-      <label class="form-label">Logo (imagen)</label>
-      <input type="file" class="form-control" (change)="onFileChange($event, 'logo')">
-    </div>
-  
-    <div class="mb-3">
-      <label class="form-label">Foto del Candidato (imagen)</label>
-      <input type="file" class="form-control" (change)="onFileChange($event, 'fotoCandidato')">
-    </div>
-  
-    <div *ngIf="msg()" class="alert alert-danger">{{ msg() }}</div>
-  
-    <div class="text-end">
-      <button type="reset" class="btn btn-secondary me-2">Limpiar</button>
-      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Guardar</button>
-    </div>
-  </form>
-  
+  <div *ngIf="msg()" class="error-msg">{{ msg() }}</div>
+
+  <div class="acciones">
+    <button mat-raised-button color="warn" type="reset">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+  </div>
+</form>

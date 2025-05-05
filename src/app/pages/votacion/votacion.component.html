@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Elige tu candidato</h2>
+  
+    <div class="row">
+      @for(partido of partidoResource.value() ?? []; track partido.id) {
+        <div class="col-md-6 mb-4">
+          <div
+            class="voto-card"
+            [class.seleccionado]="selectedPartidoId() === partido.id"
+            (click)="seleccionarPartido(partido)"
+          >
+            <div class="voto-info">
+              <h4 class="mb-1">{{ partido.nombreCandidato }}</h4>
+              <p class="mb-1 text-muted">{{ partido.nombre }} ({{ partido.siglas }})</p>
+  
+              @if(selectedPartidoId() === partido.id) {
+                <button class="btn btn-success mt-3" (click)="nuevo(partido)">Votar</button>
+              }
+            </div>
+  
+            <div class="voto-imagen">
+              <img [src]="'http://localhost:3000/uploads/partidos/' + partido.fotoCandidato" alt="Foto candidato" />
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  
+    <div class="d-flex justify-content-center my-3">
+      @if(isLoading()){
+        <mat-spinner></mat-spinner>
+      }
+    </div>
+  </div>
+  

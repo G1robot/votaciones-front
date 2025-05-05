@@ -37,7 +37,7 @@ export class LoginComponent {
           if(request.status=="success"){
             this.router.navigate(['/menu']);
             
-            this.authService.saveToken(request.data);
+            this.authService.saveToken(request.data.data);
           }
          },
          error:err=>{

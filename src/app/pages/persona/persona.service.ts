@@ -1,16 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cronograma } from './cronograma.model';
+import { Persona } from './persona.model';
 import { environment } from '../../environment/environment';
 import { from, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CronogramaService {
+export class PersonaService {
   http = inject(HttpClient)
-  url = environment.host+'cronograma';
-
+  url = environment.host+'persona';
   constructor() { }
 
   private simulateDelay(): Promise<void> {
@@ -20,27 +19,19 @@ export class CronogramaService {
   getAll() {
     return from(this.simulateDelay()).pipe(
       switchMap(() => {
-        return this.http.get<Cronograma[]>(this.url);
+        return this.http.get<Persona[]>(this.url);
       })
     );
   }
-
-  getByPartido(partidoId: string) {
-    return this.http.get<Cronograma[]>(`${this.url}/${partidoId}`);
-  }
-  
-  
-
   create(item:any){
     return this.http.post(this.url,item)
   }
 
   update(id: any, data: any) {
-    return this.http.patch(`http://localhost:3000/cronograma/${id}`, data);
+    return this.http.patch(`http://localhost:3000/persona/${id}`, data);
   }
 
   delete(id: string) {
-    return this.http.delete(`http://localhost:3000/cronograma/${id}`);
+    return this.http.delete(`http://localhost:3000/persona/${id}`);
   }
-
 }
