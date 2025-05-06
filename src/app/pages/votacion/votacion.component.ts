@@ -5,6 +5,8 @@ import { map } from 'rxjs';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SocketCliente } from '../persona/socketCliente';
+import { ResultadoComponent } from '../resultado/resultado.component';
 
 export interface Partido{
   id?: string,
@@ -28,13 +30,22 @@ export interface Votacion{
 })
 export class VotacionComponent {
   selectedPartidoId = signal<string | null>(null);
-
+  
 
   votacionService = inject(VotacionService);
   loading = signal(false);
   isLoading = computed(()=>this.loading());
   partido:Partido={};	
   votacion:Votacion={};
+
+  socket = inject(SocketCliente);
+  ngOnInit(): void {
+    this.socket.OnActualizarProducto().subscribe(dato=>{
+      console.log("actualizar producto",dato);
+      this.partidoResource.reload();
+
+    })
+  }
 
   partidoResource = rxResource({
     loader: () => {
@@ -70,7 +81,7 @@ export class VotacionComponent {
 
   nuevo(item: any) {
     this.votacion = {
-      partidoId: item.id // solo mandamos el ID
+      partidoId: item.id
     };
   
     this.votacionService.create(this.votacion).subscribe({

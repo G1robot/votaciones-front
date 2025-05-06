@@ -1,12 +1,12 @@
 .partido-card {
     position: relative;
-    background: linear-gradient(to bottom right, #e8f0fe, #ffffff);
+    background: linear-gradient(to bottom right, #1c3e79, #ffffff);
     border-radius: 1rem;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;
-    width: 250px; 
-    height: 380px; 
+    width: 300px; 
+    height: 430px; 
     padding: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
@@ -23,9 +23,9 @@
   
   .logo {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 150px;
+    top: 5px;
+    left: 10px;
+    width: 200px;
     opacity: 0.70;
     z-index: 1;
     margin-left: -30px;
@@ -34,10 +34,10 @@
   .foto-candidato {
     position: relative;
     z-index: 2;
-    height: 80%;
+    height: 90%;
     float: right;
-    margin-top: 43px;
-    margin-right: 4px;
+    margin-top: 13px;
+    margin-right: -10px;
     border-radius: 1rem;
     object-fit: cover;
   }

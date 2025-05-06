@@ -1,0 +1,39 @@
+/* Tarjeta más estilizada */
+.card {
+  background: linear-gradient(135deg, #1976d2, #64b5f6); /* Azul elegante */
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+  width: 100%; /* Asegura que la tarjeta ocupe todo el ancho disponible */
+  max-width: 600px;
+}
+
+/* Efecto sutil al pasar el mouse */
+.card:hover {
+  transform: scale(1.02);
+}
+
+/* Imagen con bordes redondeados */
+.card-img-top {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Contenedor del texto */
+.card-body {
+  text-align: center;
+  padding: 15px;
+}
+
+/* Descripción mejorada */
+.card-text {
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}

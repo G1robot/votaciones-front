@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <button class="btn btn-primary" (click)="nuevo()">Nueva Galería</button>
+  </div>
+
+  <div class="mt-4">
+    @for(galeria of galeriaResource.value() ?? []; track galeria.id) {
+      <div class="card shadow-sm mb-4">
+        <img [src]="'http://localhost:3000/uploads/galeria/' + galeria.foto" class="card-img-top img-fluid" alt="Foto de galería" />
+        <div class="card-body">
+          <p class="card-text text-center">{{ galeria.descripcion }}</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="d-flex justify-content-center my-4">
+    @if(isLoading()) {
+      <mat-spinner></mat-spinner>
+    }
+  </div>
+</div>

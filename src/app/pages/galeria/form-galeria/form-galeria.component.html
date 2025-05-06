@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="guardar()" enctype="multipart/form-data" class="formulario">
+    <h2 class="titulo">Formulario de registro Galeria</h2>
+    <div class="formulario-grid">
+        <!-- Columna izquierda -->
+        <div class="columna">
+            <label>Foto</label>
+            <div class="imagen-previa">
+                <img *ngIf="fotoPreview" [src]="fotoPreview" alt="Foto de galería">
+            </div>
+            <input type="file" (change)="onFileChange($event, 'imagen')">
+
+            <mat-form-field appearance="fill">
+                <mat-label>Descripcion</mat-label>
+                <input matInput formControlName="descripcion">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div *ngIf="msg()" class="error-msg">{{ msg() }}</div>
+
+    <div class="acciones">
+        <button mat-raised-button color="warn" type="reset">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+      </div>
+</form>

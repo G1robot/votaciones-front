@@ -4,7 +4,6 @@ export const routes: Routes = [
     {
         path:'',
         loadComponent:()=>import('./pages/login/login.component').then(c => c.LoginComponent),
-        //component:LoginComponent,
         pathMatch:'full'
     },{
         path:'menu',
@@ -23,8 +22,14 @@ export const routes: Routes = [
                     },{
                         path:'propuestas',
                         loadComponent:() => import('./pages/propuesta/propuesta.component').then(c =>c.PropuestaComponent)
+                    },{
+                        path:'galeria',
+                        loadComponent:() => import('./pages/galeria/galeria.component').then(c =>c.GaleriaComponent)
                     }
                 ],
+            },{
+                path:'galeria',
+                loadComponent:() => import('./pages/galeria/galeria.component').then(c =>c.GaleriaComponent)
             },{
                 path:'cronograma',
                 loadComponent:() => import('./pages/cronograma/cronograma.component').then(c =>c.CronogramaComponent)
@@ -34,8 +39,15 @@ export const routes: Routes = [
             },{
                 path:'votacion',
                 loadComponent:() => import('./pages/votacion/votacion.component').then(c =>c.VotacionComponent)
+            },{
+                path:'resultados',
+                loadComponent:() => import('./pages/resultado/resultado.component').then(c =>c.ResultadoComponent)
             }
 
         ]
-    },
+    },{
+        path: '**',
+        loadComponent: () => import('./pages/not-found.component').then(c => c.NotFoundComponent)
+      }
+      
 ];

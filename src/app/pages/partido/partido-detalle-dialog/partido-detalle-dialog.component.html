@@ -1,9 +1,11 @@
-<h2 mat-dialog-title>Detalles del Partido</h2>
 <mat-tab-group [(selectedIndex)]="tabIndex">
   <mat-tab label="Eventos">
     <app-cronograma [partidoId]="partidoIdSeleccionado"></app-cronograma>
   </mat-tab>
   <mat-tab label="Propuestas">
     <app-propuesta [partidoId]="partidoIdSeleccionado"></app-propuesta>
+  </mat-tab>
+  <mat-tab label="Galería">
+    <app-galeria [partidoId]="partidoIdSeleccionado"></app-galeria>
   </mat-tab>
 </mat-tab-group>

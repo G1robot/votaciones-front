@@ -1,0 +1,19 @@
+<div class="container mt-4">
+    <h2>Resultados</h2>
+  
+    <div class="d-flex justify-content-center my-3">
+      <apx-chart 
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [labels]="chartOptions.labels"
+        [responsive]="chartOptions.responsive"
+        [legend]="chartOptions.legend">
+      </apx-chart>
+    </div>
+  
+    @if(isLoading()){
+      <img src="/assets/giphy.gif" alt="Página no encontrada" style="max-width: 50%; height: auto;" />
+
+    }
+  </div>
+  

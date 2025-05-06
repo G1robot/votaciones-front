@@ -3,11 +3,12 @@ import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CronogramaComponent } from '../../cronograma/cronograma.component';
 import { PropuestaComponent } from '../../propuesta/propuesta.component';
+import { GaleriaComponent } from '../../galeria/galeria.component';
 import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-partido-detalle-dialog',
-  imports: [MatTabsModule, CommonModule, CronogramaComponent, PropuestaComponent],
+  imports: [MatTabsModule, CommonModule, CronogramaComponent, PropuestaComponent, GaleriaComponent],
   templateUrl: './partido-detalle-dialog.component.html',
   styleUrl: './partido-detalle-dialog.component.css'
 })

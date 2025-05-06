@@ -1,44 +1,37 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer mode="side" opened class="sidenav">
-      <mat-toolbar color="primary">Menú</mat-toolbar>
-      <mat-nav-list>
-        <a mat-list-item routerLink="/menu/persona" [routerLinkActive]="['activelink']"  (click)="mostrarNotificacion('Sección Personas')">
-          <mat-icon>person</mat-icon>
-          <span class="menu-text">Votantes</span>
-        </a>
-        <a mat-list-item routerLink="/menu/partidos" [routerLinkActive]="['activelink']" (click)="mostrarNotificacion('Sección Partidos')">
-          <mat-icon>groups</mat-icon>
-          <span class="menu-text">Partidos</span>
-        </a>
-        
-        <a mat-list-item routerLink="/menu/cronograma" [routerLinkActive]="['activelink']">
-          <mat-icon>event</mat-icon>
-          <span class="menu-text">Cronograma</span>
-        </a>
+  <mat-sidenav #drawer mode="side" opened class="sidenav">
+    <mat-toolbar color="primary" class="toolbar">
+      <span class="title">Menú</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a *ngIf="rol === 'admin'" mat-list-item routerLink="/menu/persona" [routerLinkActive]="['activelink']" (click)="mostrarNotificacion('Sección Personas')">
+        <mat-icon class="icon">person</mat-icon>
+        <span class="menu-text">Votantes</span>
+      </a>
+      <a mat-list-item routerLink="/menu/partidos" [routerLinkActive]="['activelink']" (click)="mostrarNotificacion('Sección Partidos')">
+        <mat-icon class="icon">groups</mat-icon>
+        <span class="menu-text">Partidos</span>
+      </a>
+      <a mat-list-item routerLink="/menu/votacion" [routerLinkActive]="['activelink']" (click)="mostrarNotificacion('Sección Votaciones')">
+        <mat-icon class="icon">how_to_vote</mat-icon>
+        <span class="menu-text">Votaciones</span>
+      </a>
+      <a mat-list-item routerLink="/menu/resultados" [routerLinkActive]="['activelink']" (click)="mostrarNotificacion('Sección Resultados')">
+        <mat-icon class="icon">bar_chart</mat-icon>
+        <span class="menu-text">Resultados</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
 
-        <a mat-list-item routerLink="/menu/propuestas" [routerLinkActive]="['activelink']">
-          <mat-icon>lightbulb</mat-icon>
-          <span class="menu-text">Propuestas</span>
-        </a>
-
-        <a mat-list-item routerLink="/menu/votacion" [routerLinkActive]="['activelink']" (click)="mostrarNotificacion('Sección Votaciones')">
-          <mat-icon>how_to_vote</mat-icon>
-          <span class="menu-text">Votaciones</span>
-        </a>
-        
-      </mat-nav-list>
-    </mat-sidenav>
-  
-    <mat-sidenav-content>
-      <mat-toolbar color="primary">
-        <button mat-icon-button (click)="drawer.toggle()" class="hide-on-large">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span>Votaciones 2025</span>
-      </mat-toolbar>
-      <div class="content">
-        <router-outlet></router-outlet>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="toolbar">
+      <span class="title" style="font-size: 1.5rem;">Elecciones 2025</span>
+      <button mat-icon-button (click)="logout()" aria-label="Logout" style="background-color: red; margin-left: auto;">
+      <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

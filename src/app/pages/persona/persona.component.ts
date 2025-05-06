@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal  } from '@angular/core';
+import { Component, computed, inject, signal, OnInit } from '@angular/core';
 import { PersonaService } from './persona.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -6,6 +6,7 @@ import { FormPersonaComponent } from './form-persona/form-persona.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SocketCliente } from './socketCliente';
 
 export interface Persona{
   id?: string,
@@ -22,12 +23,21 @@ export interface Persona{
   templateUrl: './persona.component.html',
   styleUrl: './persona.component.css'
 })
-export class PersonaComponent {
+export class PersonaComponent implements OnInit {
   personaService = inject(PersonaService);
   loading = signal(false);
   isLoading = computed(()=>this.loading());
   dialog = inject(MatDialog);
   persona:Persona={};	
+
+  socket = inject(SocketCliente);
+  ngOnInit(): void {
+    this.socket.OnActualizarProducto().subscribe(dato=>{
+      console.log("actualizar producto",dato);
+      this.personaResource.reload();
+
+    })
+  }
 
 
   personaResource = rxResource({
